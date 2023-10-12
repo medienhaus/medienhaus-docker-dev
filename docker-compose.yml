@@ -237,6 +237,7 @@ services:
       - traefik
     environment:
       NODE_ENV: "development"
+      WATCHPACK_POLLING: "true"
     labels:
       traefik.enable: "true"
       traefik.http.routers.medienhaus-spaces.entrypoints: "web"
