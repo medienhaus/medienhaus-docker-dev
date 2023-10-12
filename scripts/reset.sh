@@ -8,5 +8,4 @@ docker compose down && \
 rm -rf data/ && \
 docker compose up -d --build --force-recreate --wait && \
 sh scripts/init.sh && \
-docker compose up -d --force-recreate medienhaus-spaces --wait && \
 printf -- "-- %s --\n\n" "$0: finished successfully"

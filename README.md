@@ -33,8 +33,7 @@ This repository contains our Docker composition for a containerized runtime envi
    <br>
    ```
    docker compose up -d --wait && \
-   sh scripts/init.sh && \
-   docker compose up -d --force-recreate medienhaus-spaces
+   sh scripts/init.sh
    ```
 
 3. set up `lldap` user account(s) via: http://ldap.localhost/
@@ -53,8 +52,7 @@ This repository contains our Docker composition for a containerized runtime envi
 docker compose down && \
 rm -rf data/ && \
 docker compose up -d --build --force-recreate --wait && \
-sh scripts/init.sh && \
-docker compose up -d --force-recreate medienhaus-spaces
+sh scripts/init.sh
 ```
 
 💥 If you want to *TAKE ALL THE SHORTCUTS YOU CAN TAKE*, run `scripts/reset.sh`.
