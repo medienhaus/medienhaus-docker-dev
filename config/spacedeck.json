@@ -1,0 +1,51 @@
+{
+  "team_name": "Spacedeck",
+  "contact_email": "",
+
+  "host": "::",
+  "port": 9666,
+  "endpoint": "http://localhost:9666",
+
+  "invite_code": "change_me",
+  "session_key": "change_me",
+
+  "export_api_secret": "change_me",
+
+  "storage_dialect": "postgres",
+  "storage_host": "postgres-spacedeck",
+  "storage_username": "spacedeck",
+  "storage_password": "change_me",
+  "storage_database": "spacedeck",
+
+  "storage_local_path": "./storage",
+  "storage_local_db": "./database.sqlite",
+  "storage_region": "eu-central-1",
+  "storage_endpoint": "http://localhost:4572",
+  "storage_bucket": "my_spacedeck_bucket",
+  "storage_cdn": "/storage",
+
+  "mongodb_host": "localhost",
+  "redis_mock": true,
+  "redis_host": "localhost",
+
+  "auth_type": "ldap",
+  "auth_ldap_server": "ldap://lldap:389",
+  "auth_ldap_bind_dn": "uid=admin,ou=people,dc=example,dc=org",
+  "auth_ldap_bind_credentials": "change_me",
+  "auth_ldap_search_base": "ou=people,dc=example,dc=org",
+  "auth_ldap_search_filter": "(|(mail={{mail}})(uid={{username}}))",
+  "auth_ldap_search_attributes": ["uid", "mail"],
+  "auth_ldap_attribute_uid": "uid",
+  "auth_ldap_attribute_mail": "mail",
+  "auth_ldap_attribute_name": "displayname",
+
+  "mail_provider": "smtp",
+  "mail_smtp_host": "",
+  "mail_smtp_port": 587,
+  "mail_smtp_secure": true,
+  "mail_smtp_require_tls": true,
+  "mail_smtp_user": "",
+  "mail_smtp_pass": "",
+
+  "spacedeck": {}
+}

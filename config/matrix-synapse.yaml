@@ -1,0 +1,177 @@
+# Configuration file for Synapse.
+#
+# This is a YAML file: see [1] for a quick introduction. Note in particular
+# that *indentation is important*: all the elements of a list or dictionary
+# should have the same indentation.
+#
+# [1] https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html
+#
+# For more information on how to configure Synapse, including a complete accounting of
+# each option, go to docs/usage/configuration/config_documentation.md or
+# https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html
+
+server_name: "matrix.localhost"
+
+public_baseurl: "http://matrix.localhost/"
+
+pid_file: "/data/homeserver.pid"
+
+listeners:
+  - port: 8008
+    tls: false
+    type: http
+    x_forwarded: true
+    resources:
+      - names: [client]
+        compress: false
+
+database:
+  name: "psycopg2"
+  args:
+    host: "postgres-matrix-synapse"
+    database: "synapse"
+    user: "synapse"
+    password: "change_me"
+    cp_min: 5
+    cp_max: 10
+
+password_providers:
+  - module: "ldap_auth_provider.LdapAuthProvider"
+    config:
+      enabled: true
+      mode: "search"
+      uri: "ldap://lldap:389"
+      start_tls: false
+      base: "ou=people,dc=example,dc=org"
+      attributes:
+        uid: "uid"
+        mail: "mail"
+        name: "displayname"
+      bind_dn: "uid=admin,ou=people,dc=example,dc=org"
+      bind_password: "change_me"
+
+log_config: "/data/matrix-synapse.log.config"
+
+media_store_path: "/data/media_store"
+
+enable_registration: false
+
+registration_shared_secret: "change_me"
+
+report_stats: false
+
+macaroon_secret_key: "change_me"
+
+form_secret: "change_me"
+
+signing_key_path: "/data/matrix-synapse.signing.key"
+
+trusted_key_servers:
+  - server_name: "matrix.org"
+
+
+# less strict ratelimiting for medienhaus/spaces; see link below for details; defaults as comments below
+# https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html#ratelimiting
+
+rc_message:
+  #per_second: 0.2
+  per_second: 0.5
+  #burst_count: 10
+  burst_count: 15
+
+rc_registration:
+  #per_second: 0.17
+  per_second: 0.15
+  #burst_count: 3
+  burst_count: 2
+
+rc_registration_token_validity:
+  #per_second: 0.1
+  per_second: 0.3
+  #burst_count: 5
+  burst_count: 6
+
+rc_login:
+  address:
+    #per_second: 0.003
+    per_second: 0.15
+    #burst_count: 5
+    burst_count: 5
+  account:
+    #per_second: 0.003
+    per_second: 0.18
+    #burst_count: 5
+    burst_count: 4
+  failed_attempts:
+    #per_second: 0.17
+    per_second: 0.19
+    #burst_count: 3
+    burst_count: 7
+
+#rc_admin_redaction:
+#  #per_second: 0.2
+#  per_second: 1
+#  #burst_count: 10
+#  burst_count: 50
+
+rc_joins:
+  local:
+    #per_second: 0.1
+    per_second: 0.2
+    #burst_count: 10
+    burst_count: 15
+  remote:
+    #per_second: 0.01
+    per_second: 0.03
+    #burst_count: 10
+    burst_count: 12
+
+#rc_joins_per_room:
+#  #per_second: 1
+#  per_second: 1
+#  #burst_count: 10
+#  burst_count: 10
+
+#rc_3pid_validation:
+#  #per_second: 0.003
+#  per_second: 0.003
+#  #burst_count: 5
+#  burst_count: 5
+
+rc_invites:
+  per_room:
+    #per_second: 0.3
+    per_second: 0.5
+    #burst_count: 10
+    burst_count: 5
+  per_user:
+    #per_second: 0.003
+    per_second: 0.004
+    #burst_count: 5
+    burst_count: 3
+  per_issuer:
+    #per_second: 0.3 # is this really the default?
+    per_second: 0.5
+    #burst_count: 10 # is this really the default?
+    burst_count: 5
+
+#rc_third_party_invite:
+#  #per_second: 0.2
+#  per_second: 0.2
+#  #burst_count: 10
+#  burst_count: 10
+
+#rc_federation:
+#  #window_size: 1000
+#  window_size: 750
+#  #sleep_limit: 10
+#  sleep_limit: 15
+#  #sleep_delay: 500
+#  sleep_delay: 400
+#  #reject_limit: 50
+#  reject_limit: 40
+#  #concurrent: 3
+#  concurrent: 5
+
+#federation_rr_transactions_per_room_per_second: 50
+#federation_rr_transactions_per_room_per_second: 40

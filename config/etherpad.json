@@ -1,0 +1,61 @@
+{
+  "title": "Etherpad",
+  "favicon": "/src/static/skins/medienhaus/img/favicon.svg",
+  "skinName": "medienhaus",
+  "ip": "0.0.0.0",
+  "port": 9001,
+  "dbType": "postgres",
+  "dbSettings": {
+    "host": "postgres-etherpad",
+    "port": "5432",
+    "database": "etherpad",
+    "user": "etherpad",
+    "password": "change_me"
+  },
+  "defaultPadText": "",
+  "padOptions": {
+    "noColors": true,
+    "showControls": true,
+    "showChat": false,
+    "showLineNumbers": true,
+    "useMonospaceFont": true,
+    "userName": null,
+    "userColor": null,
+    "rtl": false,
+    "alwaysShowChat": false,
+    "chatAndUsers": false,
+    "lang": "en-us"
+  },
+  "trustProxy": "true",
+  "cookie": {
+    "sameSite": "None"
+  },
+  "users": {
+    "admin": {
+      "password": "change_me",
+      "is_admin": true
+    }
+  },
+  "socketIo": {
+    "maxHttpBufferSize": 10000
+  },
+  "ep_mypads": {
+    "ldap": {
+      "url": "ldap://lldap:389",
+      "bindDN": "uid=admin,ou=people,dc=example,dc=org",
+      "bindCredentials": "change_me",
+      "searchBase": "ou=people,dc=example,dc=org",
+      "searchFilter": "(|(mail={{mail}})(uid={{username}}))",
+      "tlsOptions": {
+        "rejectUnauthorized": true
+      },
+      "properties": {
+        "login": "uid",
+        "email": "mail",
+        "firstname": "firstname",
+        "lastname": "lastname"
+      },
+      "defaultLang": "en"
+    }
+  }
+}
