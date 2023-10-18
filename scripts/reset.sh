@@ -14,4 +14,4 @@ sh scripts/init.sh
 
 docker compose up -d --force-recreate medienhaus-spaces --wait
 
-printf -- "-- %s --\n\n" "$0: finished successfully"
+printf "\n-- %s --\n\n" "$0: finished successfully"
