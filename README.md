@@ -49,10 +49,13 @@ This repository contains our Docker composition for a containerized runtime envi
 ## Destructions — reset everything and start from scratch
 
 ```
-docker compose down && \
-rm -rf data/ && \
+docker compose down --volumes && \
+rm -rf data/etherpad && \
+rm -rf data/matrix-synapse && \
+rm -rf data/spacedeck && \
 docker compose up -d --build --force-recreate --wait && \
-sh scripts/init.sh
+sh scripts/init.sh && \
+docker compose up -d --force-recreate medienhaus-spaces
 ```
 
 💥 If you want to *TAKE ALL THE SHORTCUTS YOU CAN TAKE*, run `scripts/reset.sh`.

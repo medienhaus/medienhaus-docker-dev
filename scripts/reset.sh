@@ -4,9 +4,15 @@ set -euo pipefail
 
 trap "printf \"\n-- %s -- \n\n\" \"$0: was interrupted\" >&2; exit 2" INT TERM
 
-docker compose down
+docker compose down --volumes
 
-rm -rf data/
+rm -rf data/etherpad
+
+#rm -rf data/lldap
+
+rm -rf data/matrix-synapse
+
+rm -rf data/spacedeck
 
 docker compose up -d --build --force-recreate --wait
 

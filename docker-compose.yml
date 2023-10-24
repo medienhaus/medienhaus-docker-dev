@@ -52,7 +52,7 @@ services:
       - "80"
       - "389"
     volumes:
-      - lldap_data:/data:rw
+      - ./data/lldap:/data:rw
 
   # ------------------------------------------------------
   # etherpad
@@ -279,8 +279,6 @@ services:
 # ------------------------------------------------------
 
 volumes:
-  lldap_data:
-    driver: local
   medienhaus-spaces--node_modules:
     driver: local
   medienhaus-spaces--.next:
