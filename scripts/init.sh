@@ -20,7 +20,7 @@ MEDIENHAUS_ADMIN_ACCESS_TOKEN=$(docker exec -i matrix-synapse \
   curl "http://localhost:8008/_matrix/client/r0/login" \
     --silent \
     --request POST \
-    --data-binary @- << EOF | sed -En 's/.*"access_token":"([^"]*).*/\1/p'
+    --data-binary @- << EOF | sed -n 's/.*"access_token":"\([^"]*\).*/\1/p'
 {
   "type": "m.login.password",
   "user": "admin",
@@ -35,7 +35,7 @@ MEDIENHAUS_ROOT_CONTEXT_SPACE_ID=$(docker exec -i matrix-synapse \
   curl "http://localhost:8008/_matrix/client/r0/createRoom?access_token=${MEDIENHAUS_ADMIN_ACCESS_TOKEN}" \
     --silent \
     --request POST \
-    --data-binary @- << EOF | sed -En 's/.*"room_id":"([^"]*).*/\1/p'
+    --data-binary @- << EOF | sed -n 's/.*"room_id":"\([^"]*\).*/\1/p'
 {
   "name": "medienhaus/ root context",
   "preset": "private_chat",
@@ -69,9 +69,9 @@ EOF
 
 # -- write room_id to config/medienhaus-spaces.config.js -----------------------
 
-sed -E -i '' \
-    -e "s/(contextRootSpaceRoomId): '.*'/\1: '${MEDIENHAUS_ROOT_CONTEXT_SPACE_ID}'/g" \
-    ./config/medienhaus-spaces.config.js
+sed "s/\(contextRootSpaceRoomId\): '.*'/\1: '${MEDIENHAUS_ROOT_CONTEXT_SPACE_ID}'/g" \
+    ./config/medienhaus-spaces.config.js > ./config/medienhaus-spaces.config.tmp \
+    && mv ./config/medienhaus-spaces.config.tmp ./config/medienhaus-spaces.config.js
 
 # -- print happy little success message ----------------------------------------
 #
