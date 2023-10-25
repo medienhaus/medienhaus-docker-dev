@@ -33,7 +33,7 @@ This repository contains our Docker composition for a containerized runtime envi
    <br>
    ```
    docker compose up -d --wait && \
-   sh scripts/init.sh
+   ./scripts/init.sh
    ```
 
 3. set up `lldap` user account(s) via: http://ldap.localhost/
@@ -54,14 +54,14 @@ rm -rf data/etherpad && \
 rm -rf data/matrix-synapse && \
 rm -rf data/spacedeck && \
 docker compose up -d --build --force-recreate --wait && \
-sh scripts/init.sh && \
+./scripts/init.sh && \
 docker compose up -d --force-recreate medienhaus-spaces
 ```
 
 💥 If you want to *TAKE ALL THE SHORTCUTS YOU CAN TAKE*, run `scripts/reset.sh`.
 
 ```
-sh scripts/reset.sh
+./scripts/reset.sh
 ```
 
 🧩 For convenience reasons, manually created `lldap` accounts are not deleted.
