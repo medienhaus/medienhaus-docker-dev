@@ -23,7 +23,7 @@ MEDIENHAUS_ADMIN_ACCESS_TOKEN=$(docker exec -i matrix-synapse \
     --data-binary @- << EOF | sed -n 's/.*"access_token":"\([^"]*\).*/\1/p'
 {
   "type": "m.login.password",
-  "user": "admin",
+  "user": "medienhaus-admin",
   "password": "change_me"
 }
 EOF
