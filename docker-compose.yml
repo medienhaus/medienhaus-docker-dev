@@ -243,7 +243,7 @@ services:
       traefik.http.routers.medienhaus-spaces.entrypoints: "web"
       traefik.http.routers.medienhaus-spaces.rule: "Host(`localhost`)"
     volumes:
-      - ./config/medienhaus-spaces.config.js:/app/next.config.js:ro
+      - ./config/medienhaus-spaces.config.js:/app/config.js:ro
       - ./medienhaus-spaces:/app:rw
       - medienhaus-spaces--node_modules:/app/node_modules:rw
       - medienhaus-spaces--.next:/app/.next:rw
