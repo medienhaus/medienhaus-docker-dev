@@ -67,11 +67,11 @@ MEDIENHAUS_ROOT_CONTEXT_SPACE_ID=$(docker exec -i matrix-synapse \
 EOF
 )
 
-# -- write room_id to config/medienhaus-spaces.config.js -----------------------
+# -- write room_id to ./medienhaus-spaces/.env ---------------------------------
 
-sed "s/\(contextRootSpaceRoomId\): '.*'/\1: '${MEDIENHAUS_ROOT_CONTEXT_SPACE_ID}'/g" \
-    ./config/medienhaus-spaces.config.js > ./config/medienhaus-spaces.config.tmp \
-    && mv ./config/medienhaus-spaces.config.tmp ./config/medienhaus-spaces.config.js
+cat << EOF > ./medienhaus-spaces/.env.local
+MEDIENHAUS_ROOT_CONTEXT_SPACE_ID=${MEDIENHAUS_ROOT_CONTEXT_SPACE_ID}
+EOF
 
 # -- print happy little success message ----------------------------------------
 #
