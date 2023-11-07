@@ -5,7 +5,6 @@ set -euo pipefail
 trap "printf \"\n-- %s -- \n\n\" \"$0: was interrupted\" >&2; exit 2" INT TERM
 
 # -- register matrix-synapse account for medienhaus-spaces application ---------
-# -- NOTE: for now this needs to be an admin account due to ratelimit reasons --
 
 docker exec matrix-synapse \
   register_new_matrix_user http://localhost:8008 \
