@@ -44,12 +44,38 @@ docker exec -i matrix-synapse \
 EOF
 
 # -- create root context space for medienhaus-spaces and retrieve room_id ------
+# -- if `medienhaus-spaces/structure.json` exists, create context structure ----
+#
+# -- NOTE: valid context structures can be generated with `medienhaus-dev-tools`
+# -- https://github.com/medienhaus/medienhaus-dev-tools ------------------------
 
-MEDIENHAUS_ROOT_CONTEXT_SPACE_ID=$(docker exec -i matrix-synapse \
-  curl "http://localhost:8008/_matrix/client/r0/createRoom?access_token=${MEDIENHAUS_ADMIN_ACCESS_TOKEN}" \
-    --silent \
-    --request POST \
-    --data-binary @- << EOF | sed -n 's/.*"room_id":"\([^"]*\).*/\1/p'
+if [[ -r medienhaus-spaces/structure.json ]]; then
+  MEDIENHAUS_ROOT_CONTEXT_SPACE_ID=$(docker run \
+    --name context-structure.js \
+    --network=medienhaus-docker-dev_default \
+    --rm \
+    --volume ./medienhaus-spaces/structure.json:/opt/structure.json \
+    node:lts-alpine \
+      sh -c "
+        wget \
+          --quiet \
+          --output-document=/opt/context-structure.js \
+          https://raw.githubusercontent.com/medienhaus/medienhaus-dev-tools/main/cli/createStructure.js \
+        && \
+        node /opt/context-structure.js \
+          -b \"http://matrix-synapse:8008\" \
+          -s \"matrix.localhost\" \
+          -t \"${MEDIENHAUS_ADMIN_ACCESS_TOKEN}\" \
+          -f /opt/structure.json \
+          -r
+      "
+  )
+else
+  MEDIENHAUS_ROOT_CONTEXT_SPACE_ID=$(docker exec -i matrix-synapse \
+    curl "http://localhost:8008/_matrix/client/r0/createRoom?access_token=${MEDIENHAUS_ADMIN_ACCESS_TOKEN}" \
+      --silent \
+      --request POST \
+      --data-binary @- << EOF | sed -n 's/.*"room_id":"\([^"]*\).*/\1/p'
 {
   "name": "medienhaus/ root context",
   "preset": "private_chat",
@@ -79,30 +105,6 @@ MEDIENHAUS_ROOT_CONTEXT_SPACE_ID=$(docker exec -i matrix-synapse \
   ]
 }
 EOF
-)
-
-# -- conditionally create complete context structure and retrieve room_id ------
-
-if [[ -r medienhaus-spaces/structure.json ]]; then
-  MEDIENHAUS_ROOT_CONTEXT_SPACE_ID=$(docker run \
-    --name context-structure.js \
-    --network=medienhaus-docker-dev_default \
-    --rm \
-    --volume ./medienhaus-spaces/structure.json:/opt/structure.json \
-    node:lts-alpine \
-      sh -c "
-        wget \
-          --quiet \
-          --output-document=/opt/context-structure.js \
-          https://raw.githubusercontent.com/medienhaus/medienhaus-dev-tools/main/cli/createStructure.js \
-        && \
-        node /opt/context-structure.js \
-          -b \"http://matrix-synapse:8008\" \
-          -s \"matrix.localhost\" \
-          -t \"${MEDIENHAUS_ADMIN_ACCESS_TOKEN}\" \
-          -f /opt/structure.json \
-          -r
-      "
   )
 fi
 
