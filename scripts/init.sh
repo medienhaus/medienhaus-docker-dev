@@ -84,12 +84,12 @@ EOF
 
 # -- conditionally create complete context structure and retrieve room_id ------
 
-if [[ -r udk-structure.json ]]; then
+if [[ -r medienhaus-spaces/structure.json ]]; then
   MEDIENHAUS_ROOT_CONTEXT_SPACE_ID=$(docker run \
     --name context-structure.js \
     --network=medienhaus-docker-dev_default \
     --rm \
-    --volume ./udk-structure.json:/opt/udk-structure.json \
+    --volume ./medienhaus-spaces/structure.json:/opt/structure.json \
     node:lts-alpine \
       sh -c "
         wget \
@@ -101,7 +101,7 @@ if [[ -r udk-structure.json ]]; then
           -b \"http://matrix-synapse:8008\" \
           -s \"matrix.localhost\" \
           -t \"${MEDIENHAUS_ADMIN_ACCESS_TOKEN}\" \
-          -f /opt/udk-structure.json \
+          -f /opt/structure.json \
           -r
       "
   )
