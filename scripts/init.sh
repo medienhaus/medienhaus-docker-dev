@@ -4,7 +4,7 @@ set -euo pipefail
 
 trap "printf \"\n-- %s -- \n\n\" \"$0: was interrupted\" >&2; exit 2" INT TERM
 
-# -- register matrix-synapse account for medienhaus-* --------------------------
+# -- register matrix-synapse account for medienhaus-spaces application ---------
 # -- NOTE: for now this needs to be an admin account due to ratelimit reasons --
 
 docker exec matrix-synapse \
@@ -29,7 +29,22 @@ MEDIENHAUS_ADMIN_ACCESS_TOKEN=$(docker exec -i matrix-synapse \
 EOF
 )
 
-# -- create root context space for medienhaus-* and retrieve room_id -----------
+# -- disable ratelimit for created matrix-synapse account ----------------------
+
+docker exec -i matrix-synapse \
+  curl "http://localhost:8008/_synapse/admin/v1/users/@medienhaus-admin:matrix.localhost/override_ratelimit" \
+    --header "Authorization: Bearer ${MEDIENHAUS_ADMIN_ACCESS_TOKEN}" \
+    --silent \
+    --output /dev/null \
+    --request POST \
+    --data-binary @- << EOF
+{
+  "messages_per_second": 0,
+  "burst_count": 0
+}
+EOF
+
+# -- create root context space for medienhaus-spaces and retrieve room_id ------
 
 MEDIENHAUS_ROOT_CONTEXT_SPACE_ID=$(docker exec -i matrix-synapse \
   curl "http://localhost:8008/_matrix/client/r0/createRoom?access_token=${MEDIENHAUS_ADMIN_ACCESS_TOKEN}" \
@@ -66,6 +81,31 @@ MEDIENHAUS_ROOT_CONTEXT_SPACE_ID=$(docker exec -i matrix-synapse \
 }
 EOF
 )
+
+# -- conditionally create complete context structure and retrieve room_id ------
+
+if [[ -r udk-structure.json ]]; then
+  MEDIENHAUS_ROOT_CONTEXT_SPACE_ID=$(docker run \
+    --name context-structure.js \
+    --network=medienhaus-docker-dev_default \
+    --rm \
+    --volume ./udk-structure.json:/opt/udk-structure.json \
+    node:lts-alpine \
+      sh -c "
+        wget \
+          --quiet \
+          --output-document=/opt/context-structure.js \
+          https://raw.githubusercontent.com/medienhaus/medienhaus-dev-tools/main/cli/createStructure.js \
+        && \
+        node /opt/context-structure.js \
+          -b \"http://matrix-synapse:8008\" \
+          -s \"matrix.localhost\" \
+          -t \"${MEDIENHAUS_ADMIN_ACCESS_TOKEN}\" \
+          -f /opt/udk-structure.json \
+          -r
+      "
+  )
+fi
 
 # -- write room_id to ./medienhaus-spaces/.env ---------------------------------
 
