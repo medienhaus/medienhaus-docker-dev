@@ -46,10 +46,22 @@ This repository contains our Docker composition for a containerized runtime envi
 
 <br>
 
+## Development
+
+Hot-reloading for `medienhaus-spaces` can be started via the following command.
+
+```
+docker compose watch
+```
+
+Cancelling the watcher via `CTRL-c` will **not** stop or shut down the composition.
+
+<br>
+
 ## Destructions — reset everything and start from scratch
 
 ```
-docker compose down --volumes && \
+docker compose down && \
 rm -rf data/etherpad && \
 rm -rf data/matrix-synapse && \
 rm -rf data/spacedeck && \

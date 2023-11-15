@@ -237,16 +237,22 @@ services:
       - traefik
     environment:
       NODE_ENV: "development"
-      WATCHPACK_POLLING: "true"
     labels:
       traefik.enable: "true"
       traefik.http.routers.medienhaus-spaces.entrypoints: "web"
       traefik.http.routers.medienhaus-spaces.rule: "Host(`localhost`)"
+    develop:
+      watch:
+        - action: sync
+          path: ./medienhaus-spaces
+          target: /app
+          ignore:
+            - .next/
+            - node_modules/
+        - action: rebuild
+          path: ./medienhaus-spaces/package.json
     volumes:
       - ./config/medienhaus-spaces.config.js:/app/config.js:ro
-      - ./medienhaus-spaces:/app:rw
-      - medienhaus-spaces--node_modules:/app/node_modules:rw
-      - medienhaus-spaces--.next:/app/.next:rw
 
   element-medienhaus-spaces:
     image: vectorim/element-web:latest
@@ -263,23 +269,3 @@ services:
       traefik.http.middlewares.element-medienhaus-spaces.stripprefix.prefixes: "/element"
     volumes:
       - ./config/element-medienhaus-spaces.json:/app/config.json:ro
-
-# ------------------------------------------------------
-# networks (example)
-# ------------------------------------------------------
-
-#networks:
-#  default:
-#    name: medienhaus-spaces
-#    driver: bridge
-#    external: true
-
-# ------------------------------------------------------
-# volumes
-# ------------------------------------------------------
-
-volumes:
-  medienhaus-spaces--node_modules:
-    driver: local
-  medienhaus-spaces--.next:
-    driver: local

@@ -4,7 +4,7 @@ set -euo pipefail
 
 trap "printf \"\n-- %s -- \n\n\" \"$0: was interrupted\" >&2; exit 2" INT TERM
 
-docker compose down --volumes
+docker compose down
 
 rm -rf data/etherpad
 
