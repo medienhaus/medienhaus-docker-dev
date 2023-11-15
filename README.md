@@ -49,7 +49,7 @@ This repository contains our Docker composition for a containerized runtime envi
 ## Destructions — reset everything and start from scratch
 
 ```
-docker compose down --volumes && \
+docker compose down && \
 rm -rf data/etherpad && \
 rm -rf data/matrix-synapse && \
 rm -rf data/spacedeck && \
