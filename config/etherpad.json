@@ -14,7 +14,7 @@
   },
   "defaultPadText": "",
   "padOptions": {
-    "noColors": true,
+    "noColors": false,
     "showControls": true,
     "showChat": false,
     "showLineNumbers": true,
