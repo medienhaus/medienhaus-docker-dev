@@ -18,6 +18,6 @@ docker compose up -d --build --force-recreate --wait
 
 ./scripts/init.sh
 
-docker compose up -d --force-recreate medienhaus-spaces --wait
+docker compose up -d --build --force-recreate --wait medienhaus-spaces
 
 printf "\n-- %s --\n\n" "$0: finished successfully"

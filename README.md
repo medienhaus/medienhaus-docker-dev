@@ -67,7 +67,7 @@ rm -rf data/matrix-synapse && \
 rm -rf data/spacedeck && \
 docker compose up -d --build --force-recreate --wait && \
 ./scripts/init.sh && \
-docker compose up -d --force-recreate medienhaus-spaces
+docker compose up -d --build --force-recreate --wait medienhaus-spaces
 ```
 
 💥 If you want to *TAKE ALL THE SHORTCUTS YOU CAN TAKE*, run `scripts/reset.sh`.
