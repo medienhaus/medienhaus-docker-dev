@@ -4,7 +4,7 @@
       "base_url": "http://matrix.localhost",
       "server_name": "matrix.localhost"
     },
-      "m.identity_server": {
+    "m.identity_server": {
       "base_url": ""
     }
   },
