@@ -1,8 +1,8 @@
 {
   "default_server_config": {
     "m.homeserver": {
-      "base_url": "http://matrix.localhost",
-      "server_name": "matrix.localhost"
+      "base_url": "https://matrix.spaces.local",
+      "server_name": "matrix.spaces.local"
     },
     "m.identity_server": {
       "base_url": ""

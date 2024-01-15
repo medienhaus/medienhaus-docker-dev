@@ -64,7 +64,7 @@ if [[ -r medienhaus-spaces/structure.json ]]; then
         && \
         node /opt/context-structure.js \
           -b \"http://matrix-synapse:8008\" \
-          -s \"matrix.localhost\" \
+          -s \"matrix.spaces.local\" \
           -t \"${MEDIENHAUS_ADMIN_ACCESS_TOKEN}\" \
           -f /opt/structure.json \
           -r

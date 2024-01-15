@@ -2,26 +2,26 @@ module.exports = {
     name: 'medienhaus/spaces',
     authProviders: {
         matrix: {
-            baseUrl: 'http://matrix.localhost',
+            baseUrl: 'https://matrix.spaces.local',
             allowCustomHomeserver: true,
         },
         etherpad: {
             path: '/write',
-            baseUrl: 'http://etherpad.localhost/p',
+            baseUrl: 'https://etherpad.spaces.local/p',
             myPads: {
-                api: 'http://etherpad.localhost/mypads/api',
+                api: 'https://etherpad.spaces.local/mypads/api',
             },
         },
         spacedeck: {
             path: '/sketch',
-            baseUrl: 'http://spacedeck.localhost',
+            baseUrl: 'https://spacedeck.spaces.local',
         },
     },
     account: {
         allowAddingNewEmails: false,
     },
     chat: {
-        pathToElement: 'http://localhost/element',
+        pathToElement: 'https://spaces.local/element',
     },
     contextRootSpaceRoomId: process.env.MEDIENHAUS_ROOT_CONTEXT_SPACE_ID,
 };
