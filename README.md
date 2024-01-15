@@ -36,11 +36,11 @@ This repository contains our Docker composition for a containerized runtime envi
    ./scripts/init.sh
    ```
 
-3. set up `lldap` user account(s) via: http://ldap.localhost/
+3. set up `lldap` user account(s) via: https://ldap.spaces.local/
    - username: `admin`
    - password: `change_me`
 
-4. open the `medienhaus-spaces` application and log in via: http://localhost/login
+4. open the `medienhaus-spaces` application and log in via: https://ldap.spaces.local/login
    - username: *(configured via `lldap`)*
    - password: *(configured via `lldap`)*
 
@@ -80,14 +80,14 @@ docker compose up -d --build --force-recreate --wait medienhaus-spaces
 
 <br>
 
-## URLs / Links for default localhost setup
+## URLs / Links for default setup via [OrbStack](https://github.com/orbstack/orbstack)
 
 | Application / Service | URL / Link |
 | --- | --- |
-| `medienhaus-spaces` | http://localhost/ |
-| `matrix-synapse` | http://matrix.localhost/ |
-| `element-web` | http://element.localhost/ |
-| `etherpad-lite` | http://etherpad.localhost/ |
-| `spacedeck-open` | http://spacedeck.localhost/ |
-| `lldap` | http://ldap.localhost/ |
-| `traefik` | http://traefik.localhost/ |
+| `medienhaus-spaces` | https://spaces.local/ |
+| `matrix-synapse` | https://matrix.spaces.local/ |
+| `element-web` | https://element.spaces.local/ |
+| `etherpad-lite` | https://etherpad.spaces.local/ |
+| `spacedeck-open` | https://spacedeck.spaces.local/ |
+| `lldap` | https://ldap.spaces.local/ |
+| `traefik` | https://traefik.local/ |
