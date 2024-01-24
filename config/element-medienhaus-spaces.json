@@ -5,7 +5,8 @@
     "feature_video_rooms": true,
     "feature_element_call_video_rooms": true,
     "feature_group_calls": true,
-    "feature_new_room_decoration_ui": true
+    "feature_new_room_decoration_ui": true,
+    "feature_ask_to_join": true
   },
   "map_style_url": "https://osm.udk-berlin.de/styles/udk-berlin/style.json"
 }
