@@ -35,8 +35,8 @@ database:
     cp_min: 5
     cp_max: 10
 
-password_providers:
-  - module: "ldap_auth_provider.LdapAuthProvider"
+modules:
+  - module: "ldap_auth_provider.LdapAuthProviderModule"
     config:
       enabled: true
       mode: "search"
