@@ -8,5 +8,8 @@
     "feature_new_room_decoration_ui": true,
     "feature_ask_to_join": true
   },
-  "map_style_url": "https://osm.udk-berlin.de/styles/udk-berlin/style.json"
+  "map_style_url": "https://osm.udk-berlin.de/styles/udk-berlin/style.json",
+  "element_call": {
+    "use_exclusively": true
+  }
 }
