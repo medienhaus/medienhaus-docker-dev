@@ -16,6 +16,9 @@ module.exports = {
             path: '/sketch',
             baseUrl: 'http://spacedeck.localhost',
         },
+        tldraw: {
+            path: '/draw',
+        },
     },
     account: {
         allowAddingNewEmails: false,
@@ -24,4 +27,5 @@ module.exports = {
         pathToElement: 'http://localhost/element',
     },
     contextRootSpaceRoomId: process.env.MEDIENHAUS_ROOT_CONTEXT_SPACE_ID,
+    templates: { item: ['etherpad', 'spacedeck', 'tldraw', 'studentproject', 'link'] },
 };
