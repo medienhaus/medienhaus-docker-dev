@@ -89,7 +89,8 @@ services:
     build:
       context: ./etherpad-lite
       args:
-        ETHERPAD_PLUGINS: "ep_adminpads2 ep_comments_page ep_headings2 ep_markdown ep_mypads"
+        #ETHERPAD_PLUGINS: "ep_adminpads2 ep_comments_page ep_headings2 ep_markdown ep_mypads"
+        ETHERPAD_PLUGINS: "ep_mypads"
     container_name: etherpad
     restart: unless-stopped
     depends_on:
