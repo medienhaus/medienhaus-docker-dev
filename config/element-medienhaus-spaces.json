@@ -1,6 +1,18 @@
 {
+  "default_server_config": {
+    "m.homeserver": {
+      "base_url": "http://matrix.localhost",
+      "server_name": "matrix.localhost"
+    },
+    "m.identity_server": {
+      "base_url": ""
+    }
+  },
   "element_call": {
     "use_exclusively": true
+  },
+  "embedded_pages": {
+    "login_for_welcome": true
   },
   "features": {
     "feature_spotlight": true,

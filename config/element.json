@@ -11,6 +11,9 @@
   "element_call": {
     "use_exclusively": true
   },
+  "embedded_pages": {
+    "login_for_welcome": true
+  },
   "features": {
     "feature_spotlight": true,
     "feature_thread": true,
