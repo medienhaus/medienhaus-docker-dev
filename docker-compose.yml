@@ -41,7 +41,7 @@ services:
       LLDAP_USER_DN: "ou=people,dc=example,dc=org"
       LLDAP_USER_EMAIL: "mail@example.org"
       LLDAP_LDAP_USER_PASS: "change_me"
-      LLDAP_ENABLE_PASSWORT_RESET: false
+      LLDAP_ENABLE_PASSWORD_RESET: false
       UID: "0"
       GID: "0"
     labels:
